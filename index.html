@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Курс: Веб-разработка на HTML и CSS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f9ff;
+            color: #111;
+            line-height: 1.5;
+        }
+
+        :root {
+            --dark-blue: #0a2b5e;
+            --primary-blue: #1e4a8a;
+            --medium-blue: #2563eb;
+            --light-blue: #3b82f6;
+            --sky-blue: #bfdbfe;
+            --white: #ffffff;
+            --black: #111827;
+            --gray-light: #eef2ff;
+        }
+
+        header {
+            background: var(--dark-blue);
+            color: white;
+            padding: 1.2rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .logo h1 span {
+            color: var(--sky-blue);
+        }
+        .logo p {
+            font-size: 0.9rem;
+            color: #9fc9ff;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        nav {
+            margin-top: 1rem;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            padding-bottom: 4px;
+            border-bottom: 2px solid transparent;
+        }
+        nav a:hover {
+            border-bottom-color: var(--sky-blue);
+            color: var(--sky-blue);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), var(--medium-blue));
+            color: white;
+            padding: 3rem;
+            border-radius: 32px;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: var(--dark-blue);
+            padding: 0.8rem 2rem;
+            margin-top: 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+        .btn:hover {
+            background: var(--sky-blue);
+            transform: scale(1.03);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin: 2rem 0 1.5rem 0;
+            border-left: 5px solid var(--light-blue);
+            padding-left: 1rem;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        .card {
+            background: var(--white);
+            border-radius: 24px;
+            padding: 1.8rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e0e7ff;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: var(--dark-blue);
+            margin-bottom: 0.8rem;
+            font-size: 1.4rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            margin: 1.2rem 0;
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+        .test-container {
+            background: var(--white);
+            border-radius: 32px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border: 1px solid #d9e6ff;
+        }
+        .question-item {
+            background: var(--gray-light);
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
+        }
+        .question-text {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-blue);
+            font-size: 1.05rem;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 5px 0;
+        }
+        .option input {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--light-blue);
+            cursor: pointer;
+        }
+        .option span {
+            cursor: pointer;
+        }
+        .test-btn {
+            background: var(--dark-blue);
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: 0.2s;
+        }
+        .test-btn:hover {
+            background: var(--light-blue);
+            transform: scale(1.02);
+        }
+        .result-area {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 24px;
+            background: #f0f4ff;
+        }
+        .result-item-correct {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+        }
+        .result-item-wrong {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+        }
+        .result-item-neutral {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+        }
+        .code-demo {
+            background: #1e1e2f;
+            color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 16px;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        footer {
+            background: var(--black);
+            color: #adb7c9;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        @media (max-width: 700px) {
+            .container { padding: 0 1.2rem; }
+            .hero h2 { font-size: 1.8rem; }
+            .section-title { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h1>&lt;<span>WEB</span>匠&gt;</h1>
+        <p>Создаём сайты с нуля: HTML + CSS</p>
+    </div>
+    <nav>
+        <a href="#home">🏠 О курсе</a>
+        <a href="#lessons">🎥 Видео-уроки</a>
+        <a href="#test">📝 Интерактивный тест</a>
+        <a href="#practice">💻 Пример кода</a>
+    </nav>
+</header>
+
+<main class="container">
+    <section id="home">
+        <div class="hero">
+            <h2>Создай свой первый сайт на HTML и CSS</h2>
+            <p>Понятные видео-уроки, практические задания и тест с автопроверкой</p>
+            <a href="#lessons" class="btn">🎬 Начать обучение</a>
+        </div>
+        
+        <div class="card-grid">
+            <div class="card">
+                <h3>📄 Что такое HTML?</h3>
+                <p>HTML — это язык разметки, который создаёт структуру веб-страницы: заголовки, абзацы, изображения, ссылки.</p>
+            </div>
+            <div class="card">
+                <h3>🎨 Что такое CSS?</h3>
+                <p>CSS отвечает за стиль: цвета, шрифты, расположение блоков. Делает сайт красивым и удобным.</p>
+            </div>
+            <div class="card">
+                <h3>🛠 Что вы научитесь делать?</h3>
+                <p>Верстать макеты, создавать меню, карточки, формы и адаптивные страницы под телефон и ПК.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="lessons">
+        <h2 class="section-title">🎥 Видео-уроки по вёрстке</h2>
+        <div class="card-grid">
+            <div class="card">
+                <h3>📌 Урок 1: Основы HTML</h3>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/4jYYHaTwWvY?si=WwHZ8s9tZ6lBfxZF" title="HTML урок 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
+                <p>Изучим теги: заголовки, параграфы, списки, изображения и ссылки.</p>
+            </div>
+            <div class="card">
+                <h3>🎨 Урок 2: Основы CSS</h3>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/SpCUuyZZTp8?si=ikF7IqP5PbYoT5bV" title="CSS урок" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p>Селекторы, цвета, шрифты, рамки. Превращаем скучный текст в стильный дизайн.</p>
+            </div>
+            <div class="card">
+                <h3>📱 Урок 3: Flexbox и адаптивность</h3>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/phWxA89Dy94?si=zl2Jm1_Cf_s9G7Qk" title="Flexbox урок" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <p>Создаём гибкие макеты, которые красиво смотрятся на любом экране.</p>
+            </div>
+        </div>
+        <div style="background: var(--sky-blue); padding: 1rem; border-radius: 20px; text-align: center; margin: 1rem 0;">
+            💡 Совет: после каждого видео открывай редактор кода и повторяй примеры!
+        </div>
+    </section>
+
+    <section id="test">
+        <h2 class="section-title">🧪 Интерактивный тест: HTML & CSS</h2>
+        <p>Проверь свои знания. Выбери ответы на вопросы и нажми "Проверить ответы".</p>
+        
+        <div class="test-container">
+            <div id="questionsList"></div>
+            <button class="test-btn" id="checkTestBtn">✅ Проверить ответы</button>
+            <div id="testResult" class="result-area"></div>
+        </div>
+    </section>
+
+    <section id="practice">
+        <h2 class="section-title">💻 Живой пример кода</h2>
+        <div class="card">
+            <h3>Создаём карточку товара</h3>
+            <div class="code-demo">
+                &lt;div class="card"&gt;<br>
+                &nbsp;&nbsp;&lt;h3&gt;Ноутбук Pro&lt;/h3&gt;<br>
+                &nbsp;&nbsp;&lt;p&gt;Мощный процессор, 16GB RAM&lt;/p&gt;<br>
+                &nbsp;&nbsp;&lt;span class="price"&gt;₾4999&lt;/span&gt;<br>
+                &nbsp;&nbsp;&lt;button&gt;Купить&lt;/button&gt;<br>
+                &lt;/div&gt;
+            </div>
+            <p>✨ Этот код создаёт карточку товара. CSS добавляет тени, скругления и красивый шрифт.</p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>© 2025 Курс «Веб-разработка с нуля» | HTML + CSS для школьников 10-11 классов</p>
+    <p style="margin-top: 8px; font-size: 0.8rem;">🎨 Цвета: синий, голубой, белый, черный | Шрифт: Inter</p>
+</footer>
+
+<script>
+    // Данные для теста (HTML/CSS)
+    const quizData = [
+        {
+            text: "1. Какой тег HTML используется для создания ссылки?",
+            options: ["&lt;link&gt;", "&lt;a&gt;", "&lt;href&gt;", "&lt;url&gt;"],
+            correct: 1
+        },
+        {
+            text: "2. Какое CSS-свойство меняет цвет текста?",
+            options: ["background-color", "color", "font-style", "text-color"],
+            correct: 1
+        },
+        {
+            text: "3. Какой тег используется для вставки изображения?",
+            options: ["&lt;img&gt;", "&lt;image&gt;", "&lt;src&gt;", "&lt;pic&gt;"],
+            correct: 0
+        },
+        {
+            text: "4. Что делает свойство display: flex; ?",
+            options: [
+                "Выравнивает текст по центру", 
+                "Создаёт гибкий контейнер для элементов", 
+                "Делает элемент невидимым", 
+                "Добавляет тень"
+            ],
+            correct: 1
+        },
+        {
+            text: "5. Какой селектор CSS выбирает элемент по id='header'?",
+            options: [".header", "#header", "header", "*header"],
+            correct: 1
+        }
+    ];
+
+    // Функция отображения вопросов
+    function renderQuiz() {
+        const container = document.getElementById("questionsList");
+        if (!container) return;
+        
+        container.innerHTML = "";
+        
+        for (let i = 0; i < quizData.length; i++) {
+            const q = quizData[i];
+            
+            const questionDiv = document.createElement("div");
+            questionDiv.className = "question-item";
+            questionDiv.setAttribute("data-qindex", i);
+            
+            const questionText = document.createElement("div");
+            questionText.className = "question-text";
+            questionText.textContent = q.text;
+            questionDiv.appendChild(questionText);
+            
+            const optionsDiv = document.createElement("div");
+            optionsDiv.className = "options";
+            
+            for (let j = 0; j < q.options.length; j++) {
+                const label = document.createElement("label");
+                label.className = "option";
+                
+                const radio = document.createElement("input");
+                radio.type = "radio";
+                radio.name = "q" + i;
+                radio.value = j;
+                
+                const span = document.createElement("span");
+                // Используем textContent для корректного отображения HTML-сущностей
+                span.textContent = q.options[j].replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+                
+                label.appendChild(radio);
+                label.appendChild(span);
+                optionsDiv.appendChild(label);
+            }
+            
+            questionDiv.appendChild(optionsDiv);
+            container.appendChild(questionDiv);
+        }
+    }
+
+    // Получить выбранный ответ для вопроса
+    function getSelectedAnswer(questionIndex) {
+        const radios = document.getElementsByName("q" + questionIndex);
+        for (let i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                return parseInt(radios[i].value);
+            }
+        }
+        return -1;
+    }
+
+    // Получить текст ответа по индексу (с нормальным отображением)
+    function getAnswerText(questionIndex, answerIndex) {
+        if (answerIndex === -1) return "Не выбран";
+        let text = quizData[questionIndex].options[answerIndex];
+        // Декодируем HTML-сущности для красивого отображения
+        text = text.replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+        return text;
+    }
+
+    // Проверка теста с детальным отображением
+    function checkTest() {
+        let score = 0;
+        const total = quizData.length;
+        
+        // Считаем правильные ответы
+        for (let i = 0; i < total; i++) {
+            const selected = getSelectedAnswer(i);
+            if (selected === quizData[i].correct) {
+                score++;
+            }
+        }
+        
+        const percent = Math.round((score / total) * 100);
+        
+        // Начинаем формировать результат
+        let resultHTML = '<h3 style="margin-bottom: 1rem;">📊 Результаты теста</h3>';
+        resultHTML += '<p style="font-size: 1.2rem; margin-bottom: 1rem;"><strong>Score: ' + score + ' / ' + total + ' (' + percent + '%)</strong></p>';
+        resultHTML += '<hr style="margin: 1rem 0;">';
+        
+        // Детальный разбор по каждому вопросу
+        for (let i = 0; i < total; i++) {
+            const selected = getSelectedAnswer(i);
+            const isCorrect = (selected === quizData[i].correct);
+            const correctAnswerText = getAnswerText(i, quizData[i].correct);
+            const userAnswerText = getAnswerText(i, selected);
+            
+            // Определяем класс для стилизации
+            let statusClass = "result-item-neutral";
+            let statusIcon = "⚠️";
+            if (selected === -1) {
+                statusClass = "result-item-neutral";
+                statusIcon = "⚠️";
+            } else if (isCorrect) {
+                statusClass = "result-item-correct";
+                statusIcon = "✅";
+            } else {
+                statusClass = "result-item-wrong";
+                statusIcon = "❌";
+            }
+            
+            resultHTML += '<div class="' + statusClass + '" style="padding: 1rem; margin-bottom: 1rem; border-radius: 12px;">';
+            resultHTML += '<p style="font-weight: 700; margin-bottom: 0.5rem;">' + statusIcon + ' ' + quizData[i].text + '</p>';
+            resultHTML += '<p style="margin: 0.25rem 0;"><span style="font-weight: 600;">✅ Правильный ответ:</span> ' + correctAnswerText + '</p>';
+            
+            if (selected === -1) {
+                resultHTML += '<p style="margin: 0.25rem 0; color: #ff9800;"><span style="font-weight: 600;">⚠️ Ваш ответ:</span> Не выбран</p>';
+            } else {
+                const mark = isCorrect ? "✓" : "✗";
+                const color = isCorrect ? "#2e7d32" : "#c62828";
+                resultHTML += '<p style="margin: 0.25rem 0;"><span style="font-weight: 600;">' + mark + ' Ваш ответ:</span> <span style="color: ' + color + ';">' + userAnswerText + '</span></p>';
+            }
+            
+            resultHTML += '</div>';
+        }
+        
+        // Финальный комментарий
+        resultHTML += '<hr style="margin: 1rem 0;">';
+        if (score === total) {
+            resultHTML += '<p style="background: #c8e6c9; padding: 1rem; border-radius: 20px; font-weight: 600;">🏆 Отлично! Вы мастер HTML/CSS!</p>';
+        } else if (score >= 3) {
+            resultHTML += '<p style="background: #bbdefb; padding: 1rem; border-radius: 20px; font-weight: 600;">📘 Хороший результат! Повторите темы, где были ошибки.</p>';
+        } else {
+            resultHTML += '<p style="background: #ffccbc; padding: 1rem; border-radius: 20px; font-weight: 600;">📖 Рекомендуем пересмотреть видео-уроки и пройти тест заново.</p>';
+        }
+        
+        const resultDiv = document.getElementById("testResult");
+        if (resultDiv) {
+            resultDiv.innerHTML = resultHTML;
+            // Плавная прокрутка к результатам
+            resultDiv.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
+    // Запуск при загрузке страницы
+    window.addEventListener("DOMContentLoaded", function() {
+        renderQuiz();
+        const checkBtn = document.getElementById("checkTestBtn");
+        if (checkBtn) {
+            checkBtn.addEventListener("click", checkTest);
+        }
+    });
+</script>
+</body>
+</html>
